@@ -11,5 +11,7 @@
   --color-theme-black: #000000;
 
   --spacing-125: 500px;
+  --spacing-38: 152px;
   --radius-2.5: 10px;
+  --shadow-btn: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }

@@ -5,8 +5,35 @@ import Box from "~/components/Box.astro";
 
 <BaseLayout>
   <main class="min-h-screen flex items-center justify-center">
-    <Box class="bg-theme-mist w-125 rounded-2.5 p-10">
-      <h1>Astro</h1>
+    <Box class="bg-theme-mist w-125 rounded-2.5 p-10 flex flex-col gap-5">
+      <Box class="flex flex-col gap-2.5">
+        <label
+          class="flex text-sm leading-5 tracking-normal text-theme-black"
+          for="message"
+        >
+          Message *
+        </label>
+        <textarea
+          class="border border-transparent focus:outline-none focus:border-theme-primary bg-white flex w-full p-3.5 h-38 rounded-lg placeholder:text-theme-muted placeholder:text-sm"
+          placeholder="Enter your message"
+          name="message"
+          id="message"></textarea>
+      </Box>
+      <p class="text-theme-muted text-sm font-normal leading-5">
+        For information about our privacy practices and commitment to protecting your
+        privacy, please review our
+        <a
+          class="text-theme-primary underline"
+          href="https://www.storyblok.com/legal/privacy-policy">Privacy Policy</a
+        >.
+      </p>
+      <Box>
+        <button
+          class="flex shadow-btn bg-theme-primary rounded-lg text-white py-2 px-5 leading-6 font-medium text-base tracking-normal"
+        >
+          Send Message
+        </button>
+      </Box>
     </Box>
   </main>
 </BaseLayout>
