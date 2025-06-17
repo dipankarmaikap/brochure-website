@@ -138,6 +138,11 @@ import Input from "~/components/ui/Input.astro";
       formStatusText.classList.remove("sr-only");
       form.reset();
 
+      // Remove status message after 5 second.
+      setTimeout(() => {
+        formStatusText.textContent = "";
+        formStatusText.classList.add("sr-only");
+      }, 5000);
       // Remove the 'has-value' class from all .sp-input fields.
       form.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
         el.classList.toggle("has-value", el.value.trim() !== "");
