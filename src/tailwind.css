@@ -15,3 +15,12 @@
   --radius-2.5: 10px;
   --shadow-btn: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
+
+.sp-input:focus + label,
+.sp-input.has-value + label {
+  @apply top-4;
+}
+.sp-input:focus,
+.sp-input.has-value {
+  @apply pt-7 pb-2;
+}

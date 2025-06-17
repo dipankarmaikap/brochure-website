@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"label"> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<label
+  class:list={[
+    "label flex text-sm leading-5 tracking-normal text-theme-black",
+    className,
+  ]}
+  {...props}
+>
+  <slot />
+</label>

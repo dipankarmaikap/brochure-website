@@ -1,0 +1,50 @@
+---
+import Box from "~/components/ui/Box.astro";
+import Label from "~/components/ui/Label.astro";
+import Text from "~/components/ui/Text.astro";
+import Textarea from "~/components/ui/Textarea.astro";
+---
+
+<form action="" class="flex flex-col gap-5">
+  <Box class="relative">
+    <input
+      class="sp-input flex w-full text-sm peer h-[54px] py-2 px-3.5 rounded-lg bg-white border border-transparent focus:outline-none focus:border-theme-primary"
+      name="email"
+      id="email"
+    />
+    <label
+      class="absolute top-1/2 left-3.5 transform -translate-y-1/2 leading-5 text-theme-muted text-sm transition duration-150 ease-out"
+      for="email"
+    >
+      Work Email *
+    </label>
+  </Box>
+  <Box>
+    <Label class="mb-2.5" for="message"> Message * </Label>
+    <Textarea placeholder="Enter your message" name="message" id="message" />
+  </Box>
+  <Text>
+    For information about our privacy practices and commitment to protecting your privacy,
+    please review our
+    <a
+      class="text-theme-primary underline"
+      href="https://www.storyblok.com/legal/privacy-policy">Privacy Policy</a
+    >.
+  </Text>
+  <Box>
+    <button
+      class="flex shadow-btn bg-theme-primary rounded-lg text-white py-2 px-5 leading-6 font-medium text-base tracking-normal"
+    >
+      Send Message
+    </button>
+  </Box>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
+    el.value = "";
+    el.addEventListener("blur", () => {
+      el.classList.toggle("has-value", el.value.trim() !== "");
+    });
+  });
+</script>
