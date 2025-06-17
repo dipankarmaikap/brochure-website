@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
-import { delay, FormSchema, parseZodError, type FormSchemaType } from "~/utils";
+import { db } from "~/db/config";
+import { formTable } from "~/db/schema/form";
+import { FormSchema, parseZodError, type FormSchemaType } from "~/utils";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   const formData = await request.formData();
   const input = Object.fromEntries(formData.entries()) as Partial<FormSchemaType>;
-  await delay(5000);
   const result = FormSchema.safeParse(input);
 
   if (!result.success) {
@@ -24,7 +25,27 @@ export const POST: APIRoute = async ({ request }) => {
       }
     );
   }
-  // TODO: handle valid data (save to DB, send email, etc.)
+
+  try {
+    await db.insert(formTable).values({
+      email: result.data.email,
+      firstName: result.data.first_name,
+      lastName: result.data.last_name,
+      message: result.data.message,
+    });
+  } catch (error) {
+    console.error("DB insert failed:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: "Something went wrong. Please try again later.",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 
   return new Response(
     JSON.stringify({

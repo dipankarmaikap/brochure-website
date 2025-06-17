@@ -6,12 +6,21 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.9",
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.9.4",
     "class-variance-authority": "^0.7.1",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
     "tailwindcss": "^4.1.10"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.1"
   }
 }
