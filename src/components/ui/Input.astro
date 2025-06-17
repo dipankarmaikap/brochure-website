@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const input = cva(
+  [
+    "input sp-input flex w-full text-sm h-[54px] py-2 px-3.5 bg-white",
+    "border border-transparent focus:outline-none focus:border-theme-primary",
+  ],
+  {
+    variants: {
+      variant: {
+        rounded: ["rounded-lg"],
+        roundedLeft: ["rounded-l-lg"],
+        roundedRight: ["rounded-r-lg"],
+      },
+    },
+    defaultVariants: {
+      variant: "rounded",
+    },
+  }
+);
+
+export interface Props extends HTMLAttributes<"input">, VariantProps<typeof input> {}
+const { class: className, variant, ...props } = Astro.props;
+
+const variantClasses = input({ variant });
+---
+
+<input class:list={[variantClasses, className]} {...props} />

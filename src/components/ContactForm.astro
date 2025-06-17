@@ -3,21 +3,23 @@ import Box from "~/components/ui/Box.astro";
 import Label from "~/components/ui/Label.astro";
 import Text from "~/components/ui/Text.astro";
 import Textarea from "~/components/ui/Textarea.astro";
+import Input from "~/components/ui/Input.astro";
 ---
 
 <form action="" class="flex flex-col gap-5">
+  <Box class="grid grid-cols-2">
+    <Box class="relative">
+      <Input variant="roundedLeft" name="first_name" id="first_name" />
+      <Label variant="secondary" for="first_name"> First name * </Label>
+    </Box>
+    <Box class="relative">
+      <Input variant="roundedRight" name="last_name" id="last_name" />
+      <Label variant="secondary" for="last_name"> Last name * </Label>
+    </Box>
+  </Box>
   <Box class="relative">
-    <input
-      class="sp-input flex w-full text-sm peer h-[54px] py-2 px-3.5 rounded-lg bg-white border border-transparent focus:outline-none focus:border-theme-primary"
-      name="email"
-      id="email"
-    />
-    <label
-      class="absolute top-1/2 left-3.5 transform -translate-y-1/2 leading-5 text-theme-muted text-sm transition duration-150 ease-out"
-      for="email"
-    >
-      Work Email *
-    </label>
+    <Input name="email" id="email" />
+    <Label variant="secondary" for="email"> Work Email * </Label>
   </Box>
   <Box>
     <Label class="mb-2.5" for="message"> Message * </Label>
@@ -41,6 +43,10 @@ import Textarea from "~/components/ui/Textarea.astro";
 </form>
 
 <script>
+  /**
+   * Clears all .sp-input fields and adds/removes the 'has-value' class on blur depending on whether they have text.
+   **/
+
   document.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
     el.value = "";
     el.addEventListener("blur", () => {
