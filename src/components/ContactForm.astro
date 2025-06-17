@@ -123,8 +123,8 @@ import Input from "~/components/ui/Input.astro";
     }
 
     const data = (await response.json()) as SubmitSuccessResponse | SubmitErrorResponse;
-    console.log(data, response.status);
 
+    //handel when server response with 500 (eg: email send failed)
     if (response.status === 500) {
       formStatusText.textContent = data.message || "Unknown Error";
       formStatusText.classList.remove("sr-only");
