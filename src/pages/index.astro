@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Box from "~/components/Box.astro";
 ---
 
 <BaseLayout>
-  <h1>Astro</h1>
+  <main class="min-h-screen flex items-center justify-center">
+    <Box class="bg-theme-mist w-125 rounded-2.5 p-10">
+      <h1>Astro</h1>
+    </Box>
+  </main>
 </BaseLayout>
