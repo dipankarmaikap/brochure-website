@@ -2,4 +2,14 @@
 @theme {
   --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Custome colors based on the design */
+
+  --color-theme-primary: #73467b;
+  --color-theme-mist: #f1ecf6;
+  --color-theme-muted: #74777e;
+  --color-theme-black: #000000;
+
+  --spacing-125: 500px;
+  --radius-2.5: 10px;
 }
