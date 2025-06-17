@@ -95,6 +95,7 @@ import Input from "~/components/ui/Input.astro";
     // Hide the status message.
     const formStatusText = form.querySelector("#formStatus") as HTMLParagraphElement;
     formStatusText.classList.add("sr-only");
+    formStatusText.classList.add("bg-green-100", "text-green-600");
 
     // Disable the submit button and show a loading state.
     const submitButton = form.querySelector("button[type=submit]") as HTMLButtonElement;
@@ -114,6 +115,7 @@ import Input from "~/components/ui/Input.astro";
       success: false;
       input: FormSchemaType;
       errors: Partial<Record<keyof FormSchemaType, string>>;
+      message?: string;
     }
     interface SubmitSuccessResponse {
       success: true;
@@ -121,8 +123,16 @@ import Input from "~/components/ui/Input.astro";
     }
 
     const data = (await response.json()) as SubmitSuccessResponse | SubmitErrorResponse;
+    console.log(data, response.status);
 
-    if (data.success === false) {
+    if (response.status === 500) {
+      formStatusText.textContent = data.message || "Unknown Error";
+      formStatusText.classList.remove("sr-only");
+      formStatusText.classList.remove("bg-green-100", "text-green-600");
+      formStatusText.classList.add("bg-red-100", "text-red-600");
+    }
+
+    if (data.success === false && response.status === 400) {
       // Show field errors.
       Object.entries(data.errors).forEach(([field, message]) => {
         const errorElement = form.querySelector<HTMLParagraphElement>(
@@ -134,7 +144,9 @@ import Input from "~/components/ui/Input.astro";
       });
     } else {
       // On success: show status message and reset the form.
-      formStatusText.textContent = data.message;
+      if (data.message) {
+        formStatusText.textContent = data.message;
+      }
       formStatusText.classList.remove("sr-only");
       form.reset();
 

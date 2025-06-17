@@ -6,7 +6,7 @@ const paragraph = cva("paragraph text-sm font-normal leading-5", {
   variants: {
     variant: {
       primary: ["text-theme-muted"],
-      error: ["error-message text-red-500 mt-0.5"],
+      error: ["error-message text-red-600 mt-0.5"],
       success: ["text-green-600"],
     },
   },
@@ -20,6 +20,6 @@ const { class: className, variant, ...props } = Astro.props;
 const variantClasses = paragraph({ variant });
 ---
 
-<p class:list={[variantClasses, className]} {...props}>
+<p data-variant={variant} class:list={[variantClasses, className]} {...props}>
   <slot />
 </p>
