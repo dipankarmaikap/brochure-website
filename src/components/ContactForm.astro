@@ -6,24 +6,40 @@ import Textarea from "~/components/ui/Textarea.astro";
 import Input from "~/components/ui/Input.astro";
 ---
 
-<form action="" class="flex flex-col gap-5">
+<form
+  id="contactForm"
+  method="post"
+  aria-describedby="form-status"
+  action="/api/form"
+  class="flex flex-col gap-5"
+>
   <Box class="grid grid-cols-2">
-    <Box class="relative">
-      <Input variant="roundedLeft" name="first_name" id="first_name" />
-      <Label variant="secondary" for="first_name"> First name * </Label>
+    <Box>
+      <Box class="relative">
+        <Input variant="roundedLeft" name="first_name" id="first_name" />
+        <Label variant="secondary" for="first_name"> First name * </Label>
+      </Box>
+      <Text data-name="first_name" variant="error" />
     </Box>
-    <Box class="relative">
-      <Input variant="roundedRight" name="last_name" id="last_name" />
-      <Label variant="secondary" for="last_name"> Last name * </Label>
+    <Box>
+      <Box class="relative">
+        <Input variant="roundedRight" name="last_name" id="last_name" />
+        <Label variant="secondary" for="last_name"> Last name * </Label>
+      </Box>
+      <Text data-name="last_name" variant="error" />
     </Box>
   </Box>
-  <Box class="relative">
-    <Input name="email" id="email" />
-    <Label variant="secondary" for="email"> Work Email * </Label>
+  <Box>
+    <Box class="relative">
+      <Input name="email" id="email" />
+      <Label variant="secondary" for="email"> Work Email * </Label>
+    </Box>
+    <Text data-name="email" variant="error" />
   </Box>
   <Box>
     <Label class="mb-2.5" for="message"> Message * </Label>
     <Textarea placeholder="Enter your message" name="message" id="message" />
+    <Text data-name="message" variant="error" />
   </Box>
   <Text>
     For information about our privacy practices and commitment to protecting your privacy,
@@ -35,22 +51,98 @@ import Input from "~/components/ui/Input.astro";
   </Text>
   <Box>
     <button
-      class="flex shadow-btn bg-theme-primary rounded-lg text-white py-2 px-5 leading-6 font-medium text-base tracking-normal"
+      type="submit"
+      aria-busy="false"
+      class="flex shadow-btn bg-theme-primary rounded-lg text-white py-2 px-5 leading-6 font-medium text-base tracking-normal disabled:cursor-not-allowed disabled:opacity-50"
     >
       Send Message
     </button>
   </Box>
+  <Text
+    id="formStatus"
+    role="status"
+    aria-live="polite"
+    class="bg-green-100 p-4 rounded-lg sr-only"
+    variant="success"
+  />
 </form>
 
 <script>
-  /**
-   * Clears all .sp-input fields and adds/removes the 'has-value' class on blur depending on whether they have text.
-   **/
+  import type { FormSchemaType } from "~/utils";
 
-  document.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
+  const form = document.getElementById("contactForm") as HTMLFormElement;
+
+  /**
+   * Clear all .sp-input fields and toggle the 'has-value' class on blur.
+   */
+  form.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
     el.value = "";
     el.addEventListener("blur", () => {
       el.classList.toggle("has-value", el.value.trim() !== "");
     });
+  });
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+
+    // Clear existing error messages.
+    form.querySelectorAll(".error-message").forEach((el) => (el.textContent = ""));
+
+    // Hide the status message.
+    const formStatusText = form.querySelector("#formStatus") as HTMLParagraphElement;
+    formStatusText.classList.add("sr-only");
+
+    // Disable the submit button and show a loading state.
+    const submitButton = form.querySelector("button[type=submit]") as HTMLButtonElement;
+    const originalText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending Message...";
+    submitButton.setAttribute("aria-busy", "true");
+
+    // Send the form data to the API.
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+    });
+
+    // Define the API response types.
+    interface SubmitErrorResponse {
+      success: false;
+      input: FormSchemaType;
+      errors: Partial<Record<keyof FormSchemaType, string>>;
+    }
+    interface SubmitSuccessResponse {
+      success: true;
+      message: string;
+    }
+
+    const data = (await response.json()) as SubmitSuccessResponse | SubmitErrorResponse;
+
+    if (data.success === false) {
+      // Show field errors.
+      Object.entries(data.errors).forEach(([field, message]) => {
+        const errorElement = form.querySelector<HTMLParagraphElement>(
+          `[data-name="${field}"]`
+        );
+        if (errorElement) {
+          errorElement.textContent = message;
+        }
+      });
+    } else {
+      // On success: show status message and reset the form.
+      formStatusText.textContent = data.message;
+      formStatusText.classList.remove("sr-only");
+      form.reset();
+
+      // Remove the 'has-value' class from all .sp-input fields.
+      form.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
+        el.classList.toggle("has-value", el.value.trim() !== "");
+      });
+    }
+    // Restore the submit button.
+    submitButton.disabled = false;
+    submitButton.textContent = originalText;
+    submitButton.setAttribute("aria-busy", "false");
   });
 </script>
