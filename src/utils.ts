@@ -49,3 +49,21 @@ export function parseZodError(issues: ZodIssue[] | undefined): Record<string, st
 export async function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+/**
+ * Converts a Date or date string to a nicely formatted string.
+ *
+ * @param {Date | string} date - The date or date string to format.
+ * @returns {string} A formatted date string, e.g. "18 June, 2025".
+ *
+ * @example
+ * formatDateShort("2025-06-17T20:32:47.826Z");
+ * // → "18 June, 2025"
+ */
+export function formatDateShort(date: Date | string): string {
+  const d = new Date(date);
+  const day = d.getDate();
+  const month = d.toLocaleString("en-IN", { month: "long" });
+  const year = d.getFullYear();
+  return `${day} ${month}, ${year}`;
+}
