@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { db } from "~/db/config";
 import { formTable } from "~/db/schema/form";
+import { sendEmail } from "~/lib/mailer";
 import { FormSchema, parseZodError, type FormSchemaType } from "~/utils";
 
 export const prerender = false;
@@ -32,6 +33,11 @@ export const POST: APIRoute = async ({ request }) => {
       firstName: result.data.first_name,
       lastName: result.data.last_name,
       message: result.data.message,
+    });
+    await sendEmail({
+      to: result.data.email,
+      subject: "A Copy of Your Message",
+      text: result.data.message,
     });
   } catch (error) {
     console.error("DB insert failed:", error);
