@@ -1,9 +1,7 @@
 ---
 import Box from "~/components/ui/Box.astro";
-import Label from "~/components/ui/Label.astro";
 import Text from "~/components/ui/Text.astro";
-import Textarea from "~/components/ui/Textarea.astro";
-import Input from "~/components/ui/Input.astro";
+import InputFields from "~/components/contactForm/InputFields.astro";
 ---
 
 <form
@@ -13,34 +11,7 @@ import Input from "~/components/ui/Input.astro";
   action="/api/form"
   class="flex flex-col gap-5"
 >
-  <Box class="grid grid-cols-2">
-    <Box>
-      <Box class="relative">
-        <Input variant="roundedLeft" name="first_name" id="first_name" />
-        <Label variant="secondary" for="first_name"> First name * </Label>
-      </Box>
-      <Text data-name="first_name" variant="error" />
-    </Box>
-    <Box>
-      <Box class="relative">
-        <Input variant="roundedRight" name="last_name" id="last_name" />
-        <Label variant="secondary" for="last_name"> Last name * </Label>
-      </Box>
-      <Text data-name="last_name" variant="error" />
-    </Box>
-  </Box>
-  <Box>
-    <Box class="relative">
-      <Input name="email" id="email" />
-      <Label variant="secondary" for="email"> Work Email * </Label>
-    </Box>
-    <Text data-name="email" variant="error" />
-  </Box>
-  <Box>
-    <Label class="mb-2.5" for="message"> Message * </Label>
-    <Textarea placeholder="Enter your message" name="message" id="message" />
-    <Text data-name="message" variant="error" />
-  </Box>
+  <InputFields />
   <Text>
     For information about our privacy practices and commitment to protecting your privacy,
     please review our
