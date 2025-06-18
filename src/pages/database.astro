@@ -39,7 +39,9 @@ const formSubmissions = await db.select().from(formTable);
                   <p>{formSubmission.message}</p>
                 </td>
                 <td class="p-2 text-gray-700">
-                  {formatDateShort(formSubmission.createdAt)}
+                  <time datetime={formSubmission.createdAt}>
+                    {formatDateShort(formSubmission.createdAt)}
+                  </time>
                 </td>
               </tr>
             ))
