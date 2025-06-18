@@ -2,6 +2,10 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Box from "~/components/ui/Box.astro";
 import ContactForm from "~/components/contactForm/ContactForm.astro";
+
+console.log(import.meta.env.SMTP_SECURE === "true");
+console.log(import.meta.env.SMTP_SECURE);
+console.log(import.meta.env.SMTP_SECURE === true);
 ---
 
 <BaseLayout>

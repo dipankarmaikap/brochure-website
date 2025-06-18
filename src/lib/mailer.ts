@@ -18,6 +18,7 @@ export const SMTP_CREDENTIALS: SMTPCredentials = {
   from: import.meta.env.SMTP_FROM!,
 };
 
+console.log(import.meta.env.SMTP_SECURE);
 console.log(SMTP_CREDENTIALS);
 
 
