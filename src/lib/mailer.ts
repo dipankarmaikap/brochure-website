@@ -18,6 +18,9 @@ export const SMTP_CREDENTIALS: SMTPCredentials = {
   from: import.meta.env.SMTP_FROM!,
 };
 
+console.log(SMTP_CREDENTIALS);
+
+
 export function createTransporter(creds: SMTPCredentials) {
   return nodemailer.createTransport({
     host: creds.host,
