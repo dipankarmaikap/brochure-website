@@ -14,32 +14,36 @@ const formSubmissions = await db.select().from(formTable);
         <thead>
           <tr class="text-sm">
             <th
-              class="text-start font-normal text-theme-muted bg-gray-100 py-2 px-4 rounded-tl-lg"
-              >Name</th
+              class="text-start font-normal text-theme-muted bg-gray-100 py-2 pl-4 rounded-tl-lg"
             >
+              Name
+            </th>
             <th class="text-start font-normal text-theme-muted bg-gray-100 p-2">Email</th>
-            <th class="text-start font-normal text-theme-muted bg-gray-100 p-2"
-              >Message</th
-            >
+            <th class="text-start font-normal text-theme-muted bg-gray-100 p-2">
+              Message
+            </th>
             <th
-              class="text-start font-normal text-theme-muted bg-gray-100 p-2 rounded-tr-lg"
-              >Date</th
+              class="text-start font-normal text-theme-muted bg-gray-100 p-2 pr-4 rounded-tr-lg"
             >
+              Date
+            </th>
           </tr>
         </thead>
         <tbody class="border border-gray-200">
           {
             formSubmissions.map((formSubmission) => (
               <tr class="border-b border-gray-200">
-                <td class="p-2 px-4 text-gray-700">
-                  {formSubmission.firstName} {formSubmission.firstName}
+                <td class="p-2 pl-4 text-gray-700">
+                  <p class="whitespace-nowrap">
+                    {formSubmission.firstName} {formSubmission.lastName}
+                  </p>
                 </td>
                 <td class="p-2 text-gray-700">{formSubmission.email}</td>
                 <td class="p-2 text-gray-700">
                   <p>{formSubmission.message}</p>
                 </td>
-                <td class="p-2 text-gray-700">
-                  <time datetime={formSubmission.createdAt}>
+                <td class="p-2 pr-4 text-gray-700">
+                  <time class="whitespace-nowrap" datetime={formSubmission.createdAt}>
                     {formatDateShort(formSubmission.createdAt)}
                   </time>
                 </td>
