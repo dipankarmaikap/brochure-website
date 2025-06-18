@@ -18,7 +18,7 @@
 
 .sp-input:focus + label,
 .sp-input.has-value + label {
-  @apply top-4;
+  @apply top-4 text-xs;
 }
 .sp-input:focus,
 .sp-input.has-value {
