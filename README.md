@@ -2,11 +2,15 @@
 
 A modern **Astro** brochure site with a fully working, type-safe contact form.
 
-## 🚀 Live Demo
+## 📂 Routes
+
+| Path        | Description                           |
+| ----------- | ------------------------------------- |
+| `/`         | Homepage with contact form            |
+| `/api/form` | API endpoint for handling submissions |
+| `/database` | View all submitted form entries       |
 
 👉 [View the live site here](https://brochure-website-brown.vercel.app/)
-
----
 
 ## ✏️ Features
 
@@ -31,30 +35,15 @@ A modern **Astro** brochure site with a fully working, type-safe contact form.
 
 - ☁️ **Deployed on Vercel**
 
----
-
 ## ⚙️ Tech Stack
 
 - **Framework:** [Astro](https://astro.build/)
-- **Database:** [Turso](https://turso.tech/) (SQLite-compatible)
+- **Database:** [Turso](https://turso.tech/)
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
 - **Validation:** [Zod](https://zod.dev/)
-- **Email:** [Nodemailer](https://nodemailer.com/) with custom SMTP
+- **Email:** [Nodemailer](https://nodemailer.com/)
 - **Hosting:** [Vercel](https://vercel.com/)
 
----
+**Why not use Supabase or Resend?**
 
-## 📂 Routes
-
-| Path        | Description                           |
-| ----------- | ------------------------------------- |
-| `/`         | Homepage with contact form            |
-| `/api/form` | API endpoint for handling submissions |
-| `/database` | View all submitted form entries       |
-
----
-
-## 💡 Why Custom Backend?
-
-> **Why not use Supabase or Resend?**
 > To demonstrate a from-scratch implementation and show how you can own your data and mail server. But you can easily swap these out for hosted services if needed.
