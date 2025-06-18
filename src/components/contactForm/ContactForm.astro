@@ -1,6 +1,7 @@
 ---
 import Box from "~/components/ui/Box.astro";
 import Text from "~/components/ui/Text.astro";
+import Button from "~/components/ui/Button.astro";
 import InputFields from "~/components/contactForm/InputFields.astro";
 ---
 
@@ -24,13 +25,7 @@ import InputFields from "~/components/contactForm/InputFields.astro";
     </a>.
   </Text>
   <Box>
-    <button
-      type="submit"
-      aria-busy="false"
-      class="flex shadow-btn bg-theme-primary rounded-lg text-white py-2 px-5 leading-6 font-medium text-base tracking-normal disabled:cursor-not-allowed disabled:opacity-50"
-    >
-      Send Message
-    </button>
+    <Button type="submit" aria-busy="false"> Send Message </Button>
   </Box>
   <Text
     id="formStatus"
