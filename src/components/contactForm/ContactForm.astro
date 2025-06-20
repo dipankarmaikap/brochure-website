@@ -25,7 +25,7 @@ import InputFields from "~/components/contactForm/InputFields.astro";
     </a>.
   </Text>
   <Box>
-    <Button type="submit" aria-busy="false"> Send Message </Button>
+    <Button type="submit" aria-busy="false">Send Message</Button>
   </Box>
   <Text
     id="formStatus"
@@ -44,7 +44,7 @@ import InputFields from "~/components/contactForm/InputFields.astro";
   /**
    * Clear all .sp-input fields and toggle the 'has-value' class on blur.
    */
-  form.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
+  form?.querySelectorAll<HTMLInputElement>("input.sp-input").forEach((el) => {
     el.value = "";
     el.addEventListener("blur", () => {
       el.classList.toggle("has-value", el.value.trim() !== "");
