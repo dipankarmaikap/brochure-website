@@ -100,12 +100,19 @@ import InputFields from "~/components/contactForm/InputFields.astro";
 
     if (data.success === false && response.status === 400) {
       // Show field errors.
-      Object.entries(data.errors).forEach(([field, message]) => {
+      Object.entries(data.errors).forEach(([field, message], index) => {
         const errorElement = form.querySelector<HTMLParagraphElement>(
           `[data-name="${field}"]`
         );
         if (errorElement) {
           errorElement.textContent = message;
+        }
+        //Set focus on the first input field
+        if (index === 0) {
+          const inputField = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(
+            `#${field}`
+          );
+          inputField?.focus();
         }
       });
     } else {
